@@ -125,7 +125,12 @@ import axios from 'axios'
       },
       onInputChild (newEvent) {
         newEvent.date = this.start
-        this.events.push(newEvent)
+        let post = {"post": newEvent}
+        axios.post('/todo', post).then(function(response){
+            console.log(response.data);
+        }).catch(function (error) {
+          console.log(error)
+        })
         console.log(this.events)
       },
       getEvents () {
