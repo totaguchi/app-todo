@@ -60,6 +60,13 @@
                     >
                       Cancel
                     </v-btn>
+                     <v-btn
+                      flat
+                      color="secondary" 
+                      @click="deleteEvent(event.id)" 
+                    >
+                      Delete
+                    </v-btn>
                   </v-card-actions>
                 </v-card>
               </v-menu>
@@ -126,18 +133,23 @@ import axios from 'axios'
       onInputChild (newEvent) {
         newEvent.date = this.start
         let post = {"post": newEvent}
-        axios.post('/todo', post).then(function(response){
-            console.log(response.data);
+        axios.post('/api/todo', post).then(function(response) {
         }).catch(function (error) {
           console.log(error)
         })
-        console.log(this.events)
       },
       getEvents () {
         let self = this
-        axios.get('/todo').then(function(response){
+        axios.get('/api/todo').then(function(response) {
           self.events = response.data.data
-          console.log(response.data.data)
+        })
+      },
+      deleteEvent (id) {
+        console.log(id)
+        axios.delete('/api/todo/'+ id).then(function(response) {
+          console.log(response)
+        }).catch(function (error) {
+          console.log(error)
         })
       }
     },

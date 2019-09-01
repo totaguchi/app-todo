@@ -17,11 +17,12 @@ defmodule PhxVueWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/todo", PostController, except: [:new, :edit]
+    
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PhxVueWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", PhxVueWeb do
+      pipe_through :api
+      resources "/todo", PostController, except: [:new, :edit]
+  end
 end
